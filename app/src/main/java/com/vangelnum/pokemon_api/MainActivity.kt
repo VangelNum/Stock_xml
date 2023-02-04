@@ -1,31 +1,40 @@
 package com.vangelnum.pokemon_api
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.vangelnum.pokemon_api.presentation.MainViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.vangelnum.pokemon_api.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    //private val viewModel: MainViewModel by viewModels()
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        var todoList = mutableListOf(
+            Todo("Follow Android", false),
+            Todo("ANother Android", false),
+            Todo("Follow Android", false),
+            Todo("Follow Valueid", false),
+            Todo("Follow cHECK", false)
+        )
 
-        lifecycleScope.launch {
-            val state = viewModel.items
-            state.collect {
-                Log.d("Tag", it.toString())
-            }
+        val adapter = TodoAdapter(todoList)
+        binding.rvTodos.adapter = adapter
+        binding.rvTodos.layoutManager = LinearLayoutManager(this)
+
+        binding.btnAddTodo.setOnClickListener {
+            val title = binding.etTodo.text.toString()
+            val todo = Todo(title, false)
+            todoList.add(todo)
+            adapter.notifyItemInserted(todoList.size - 1)
         }
-
-
     }
 }
