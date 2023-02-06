@@ -15,7 +15,7 @@ class MainViewModel @Inject constructor(
     private val repository: NewsRepository,
 ) : ViewModel() {
 
-    private val _items = MutableStateFlow(News(emptyList(), "", 0))
+    private val _items = MutableStateFlow(News())
     var items: StateFlow<News> = _items
 
     init {
