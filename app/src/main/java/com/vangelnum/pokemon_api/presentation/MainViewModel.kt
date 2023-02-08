@@ -1,5 +1,6 @@
 package com.vangelnum.pokemon_api.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vangelnum.pokemon_api.data.model.News
@@ -20,6 +21,7 @@ class MainViewModel @Inject constructor(
 
     init {
         getNews()
+        Log.d("tag","get news")
     }
 
     private fun getNews() {

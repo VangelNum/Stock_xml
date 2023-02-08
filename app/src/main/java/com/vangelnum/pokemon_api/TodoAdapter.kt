@@ -18,7 +18,6 @@ class TodoAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         holder.binding.tvTitle.text = todos[position].title
         Glide.with(holder.binding.imageView.context)
             .load(todos[position].urlToImage)
