@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vangelnum.pokemon_api.common.Resource
 import com.vangelnum.pokemon_api.databinding.FragmentMainBinding
 import com.vangelnum.pokemon_api.presentation.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment() : Fragment() {
+class MainFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: FragmentMainBinding
 
@@ -29,11 +30,23 @@ class MainFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenCreated {
             val state = viewModel.items
-            state.collect {
-                if (it.status == "ok") {
-                    val adapter: TodoAdapter = TodoAdapter(it.articles)
-                    binding.rvTodos.adapter = adapter
-                    binding.rvTodos.layoutManager = LinearLayoutManager(view.context)
+            state.collect { res ->
+                when (res) {
+                    is Resource.Success -> {
+                        binding.pgMain.visibility = View.GONE
+                        val adapter = NewsAdapter(res.data!!.articles)
+                        binding.rvTodos.adapter = adapter
+                        binding.rvTodos.layoutManager = LinearLayoutManager(view.context)
+                    }
+                    is Resource.Error -> {
+                        binding.tvError.text = res.message.toString()
+                        binding.tvError.visibility = View.VISIBLE
+                        binding.pgMain.visibility = View.GONE
+                    }
+                    is Resource.Loading -> {
+                        binding.pgMain.visibility = View.VISIBLE
+                    }
+                    else -> {}
                 }
             }
         }

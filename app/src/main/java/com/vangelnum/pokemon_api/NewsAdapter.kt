@@ -7,9 +7,9 @@ import com.bumptech.glide.Glide
 import com.vangelnum.pokemon_api.data.model.Article
 import com.vangelnum.pokemon_api.databinding.ItemTodoBinding
 
-class TodoAdapter(
+class NewsAdapter(
     private val todos: List<Article>
-) : RecyclerView.Adapter<TodoAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
     inner class MyViewHolder(val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

@@ -17,14 +17,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         navController = findNavController(R.id.nav_host_container)
+
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.fragmentMain, R.id.fragmentFavourite, R.id.fragmentSearch)
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
     }
