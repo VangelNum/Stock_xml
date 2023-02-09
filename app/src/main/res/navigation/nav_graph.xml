@@ -13,9 +13,9 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentFavourite"
-        android:name="com.vangelnum.pokemon_api.FavouriteFragment"
+        android:name="com.vangelnum.pokemon_api.feature_favourite.presentation.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_favourite">
     </fragment>
     <fragment
         android:id="@+id/fragmentSearch"
